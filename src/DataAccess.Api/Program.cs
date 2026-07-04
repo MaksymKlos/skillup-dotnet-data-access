@@ -10,4 +10,4 @@ app.MapDefaultEndpoints();
 
 app.MapGet("/", () => "dotnet-data-access-playground: EF Core (write) + Dapper (read)");
 
-app.Run();
+await app.RunAsync();

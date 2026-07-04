@@ -14,4 +14,4 @@ builder.AddProject<Projects.DataAccess_Api>("api")
     .WaitFor(postgresDb)
     .WaitFor(sqlDb);
 
-builder.Build().Run();
+await builder.Build().RunAsync();
