@@ -427,3 +427,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Project-specific: internal planning doc (not part of the repo deliverable)
+PLAN.md

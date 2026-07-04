@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/DataAccess.AppHost/DataAccess.AppHost.csproj" />
+    <Project Path="src/DataAccess.ServiceDefaults/DataAccess.ServiceDefaults.csproj" />
+    <Project Path="src/DataAccess.Api/DataAccess.Api.csproj" />
+    <Project Path="src/DataAccess.Core/DataAccess.Core.csproj" />
+    <Project Path="src/DataAccess.Infrastructure.EfCore/DataAccess.Infrastructure.EfCore.csproj" />
+    <Project Path="src/DataAccess.Infrastructure.Dapper/DataAccess.Infrastructure.Dapper.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DataAccess.UnitTests/DataAccess.UnitTests.csproj" />
+    <Project Path="tests/DataAccess.IntegrationTests/DataAccess.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
