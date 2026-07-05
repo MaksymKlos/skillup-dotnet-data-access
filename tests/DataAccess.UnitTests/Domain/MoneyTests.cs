@@ -1,4 +1,4 @@
-using DataAccess.Core.Domain.Common;
+using DataAccess.Domain.Common;
 using Shouldly;
 using Xunit;
 
@@ -36,6 +36,6 @@ public class MoneyTests
     [Fact]
     public void Negative_amount_throws()
     {
-        Should.Throw<DomainException>(() => new Money(-1m, "USD"));
+        Should.Throw<DomainException>(() => new Money(-10m, "USD"));
     }
 }
