@@ -1,9 +1,8 @@
-using DataAccess.Core.Domain.Common;
-using DataAccess.Core.Domain.Orders;
-using DataAccess.Core.Domain.Orders.Events;
-using DataAccess.Core.Domain.Orders.Identifiers;
-using DataAccess.Core.Domain.Products;
-using DataAccess.Core.Domain.Products.Identifiers;
+using DataAccess.Domain.Common;
+using DataAccess.Domain.Orders;
+using DataAccess.Domain.Orders.Events;
+using DataAccess.Domain.Orders.Identifiers;
+using DataAccess.Domain.Products.Identifiers;
 using Shouldly;
 using Xunit;
 
@@ -44,6 +43,18 @@ public class OrderTests
     }
 
     [Fact]
+    public void Removing_a_line_updates_the_total()
+    {
+        var order = NewDraft();
+        var product = ProductId.New();
+        order.AddLine(product, 2, new Money(10m, "USD"));
+
+        order.RemoveLine(product);
+
+        order.Lines.ShouldBeEmpty();
+    }
+
+    [Fact]
     public void Cannot_modify_order_after_it_is_placed()
     {
         var order = NewDraft();
@@ -79,5 +90,46 @@ public class OrderTests
         order.AddLine(ProductId.New(), 1, new Money(10m, "USD"));
 
         Should.Throw<DomainException>(() => order.AddLine(ProductId.New(), 1, new Money(10m, "EUR")));
+    }
+
+    [Fact]
+    public void Marking_a_placed_order_as_paid_sets_status_paid()
+    {
+        var order = NewDraft();
+        order.AddLine(ProductId.New(), 1, new Money(10m, "USD"));
+        order.Place();
+
+        order.MarkPaid();
+
+        order.Status.ShouldBe(OrderStatus.Paid);
+    }
+
+    [Fact]
+    public void Marking_a_draft_order_as_paid_throws()
+    {
+        var order = NewDraft();
+
+        Should.Throw<DomainException>(order.MarkPaid);
+    }
+
+    [Fact]
+    public void Cancelling_a_draft_order_sets_status_cancelled()
+    {
+        var order = NewDraft();
+
+        order.Cancel();
+
+        order.Status.ShouldBe(OrderStatus.Cancelled);
+    }
+
+    [Fact]
+    public void Cancelling_a_paid_order_throws()
+    {
+        var order = NewDraft();
+        order.AddLine(ProductId.New(), 1, new Money(10m, "USD"));
+        order.Place();
+        order.MarkPaid();
+
+        Should.Throw<DomainException>(order.Cancel);
     }
 }

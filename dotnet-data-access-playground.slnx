@@ -8,7 +8,8 @@
     <Project Path="src/DataAccess.AppHost/DataAccess.AppHost.csproj" />
     <Project Path="src/DataAccess.ServiceDefaults/DataAccess.ServiceDefaults.csproj" />
     <Project Path="src/DataAccess.Api/DataAccess.Api.csproj" />
-    <Project Path="src/DataAccess.Core/DataAccess.Core.csproj" />
+    <Project Path="src/DataAccess.Domain/DataAccess.Domain.csproj" />
+    <Project Path="src/DataAccess.Application/DataAccess.Application.csproj" />
     <Project Path="src/DataAccess.Infrastructure.EfCore/DataAccess.Infrastructure.EfCore.csproj" />
     <Project Path="src/DataAccess.Infrastructure.Dapper/DataAccess.Infrastructure.Dapper.csproj" />
   </Folder>

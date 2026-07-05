@@ -1,7 +1,7 @@
-using DataAccess.Core.Domain.Common;
-using DataAccess.Core.Domain.Products;
-using DataAccess.Core.Domain.Products.Events;
-using DataAccess.Core.Domain.Products.Identifiers;
+using DataAccess.Domain.Common;
+using DataAccess.Domain.Products;
+using DataAccess.Domain.Products.Events;
+using DataAccess.Domain.Products.Identifiers;
 using Shouldly;
 using Xunit;
 
@@ -10,7 +10,7 @@ namespace DataAccess.UnitTests.Domain;
 public class ProductTests
 {
     private static Product NewProduct(int stock = 10)
-        => Product.Create(ProductId.New(), "SKU-1", stock);
+        => Product.Create(ProductId.New(), "SKU-1", new Money(10m, "USD"), stock);
 
     [Fact]
     public void Decrease_reduces_stock()
@@ -28,6 +28,14 @@ public class ProductTests
         var product = NewProduct(2);
 
         Should.Throw<DomainException>(() => product.Decrease(5));
+    }
+
+    [Fact]
+    public void Decrease_with_non_positive_quantity_throws()
+    {
+        var product = NewProduct(10);
+
+        Should.Throw<DomainException>(() => product.Decrease(0));
     }
 
     [Fact]
@@ -51,8 +59,31 @@ public class ProductTests
     }
 
     [Fact]
+    public void Restock_with_non_positive_quantity_throws()
+    {
+        var product = NewProduct(1);
+
+        Should.Throw<DomainException>(() => product.Restock(0));
+    }
+
+    [Fact]
     public void Create_with_blank_sku_throws()
     {
-        Should.Throw<DomainException>(() => Product.Create(ProductId.New(), " ", 1));
+        Should.Throw<DomainException>(() => Product.Create(ProductId.New(), " ", new Money(10m, "USD"), 1));
+    }
+
+    [Fact]
+    public void Create_with_negative_stock_throws()
+    {
+        Should.Throw<DomainException>(() => Product.Create(ProductId.New(), "SKU-1", new Money(10m, "USD"), -1));
+    }
+
+    [Fact]
+    public void Created_product_exposes_price_and_sku()
+    {
+        var product = Product.Create(ProductId.New(), "SKU-1", new Money(12.50m, "USD"), 5);
+
+        product.Sku.ShouldBe("SKU-1");
+        product.Price.ShouldBe(new Money(12.50m, "USD"));
     }
 }

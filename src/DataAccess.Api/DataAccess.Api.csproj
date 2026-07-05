@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess.Core\DataAccess.Core.csproj" />
+    <ProjectReference Include="..\DataAccess.Domain\DataAccess.Domain.csproj" />
+    <ProjectReference Include="..\DataAccess.Application\DataAccess.Application.csproj" />
     <ProjectReference Include="..\DataAccess.Infrastructure.EfCore\DataAccess.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\DataAccess.Infrastructure.Dapper\DataAccess.Infrastructure.Dapper.csproj" />
     <ProjectReference Include="..\DataAccess.ServiceDefaults\DataAccess.ServiceDefaults.csproj" />
