@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\src\DataAccess.Domain\DataAccess.Domain.csproj" />
     <ProjectReference Include="..\..\src\DataAccess.Application\DataAccess.Application.csproj" />
     <ProjectReference Include="..\..\src\DataAccess.Infrastructure.EfCore\DataAccess.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\..\src\DataAccess.Infrastructure.Dapper\DataAccess.Infrastructure.Dapper.csproj" />
   </ItemGroup>
 
 </Project>
