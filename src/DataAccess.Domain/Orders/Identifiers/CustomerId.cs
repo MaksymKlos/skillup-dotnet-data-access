@@ -1,6 +1,8 @@
+using DataAccess.Domain.Common;
+
 namespace DataAccess.Domain.Orders.Identifiers;
 
-public readonly record struct CustomerId(Guid Value)
+public readonly record struct CustomerId(Guid Value) : IStronglyTypedId
 {
     public static CustomerId New() => new(Guid.NewGuid());
 

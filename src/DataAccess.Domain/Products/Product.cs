@@ -21,9 +21,9 @@ public sealed class Product : AggregateRoot<ProductId>
         Stock = stock;
     }
 
-    public string Sku { get; private set; } = default!;
+    public string Sku { get; private set; } = null!;
 
-    public Money Price { get; private set; } = default!;
+    public Money Price { get; private set; } = null!;
 
     public int Stock { get; private set; }
 
