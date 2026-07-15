@@ -11,8 +11,8 @@ namespace DataAccess.Infrastructure.EfCore;
 
 public static class DependencyInjection
 {
-    private const string PostgresConnectionName = "ordersdb";
-    private const string SqlServerConnectionName = "OrdersDb";
+    private const string PostgresConnectionName = "orders-postgres";
+    private const string SqlServerConnectionName = "orders-sqlserver";
 
     public static IServiceCollection AddEfCore(this IServiceCollection services, IConfiguration configuration)
     {

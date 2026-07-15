@@ -19,7 +19,7 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
 
             lines.OwnsOne(l => l.UnitPrice, price =>
             {
-                price.Property(p => p.Amount);
+                price.Property(p => p.Amount).HasPrecision(18, 2);
                 price.Property(p => p.Currency).HasMaxLength(3);
             });
             lines.Navigation(l => l.UnitPrice).IsRequired();

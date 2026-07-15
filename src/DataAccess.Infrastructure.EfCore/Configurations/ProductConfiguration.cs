@@ -14,7 +14,7 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.OwnsOne(p => p.Price, price =>
         {
-            price.Property(m => m.Amount);
+            price.Property(m => m.Amount).HasPrecision(18, 2);
             price.Property(m => m.Currency).HasMaxLength(3);
         });
         builder.Navigation(p => p.Price).IsRequired();

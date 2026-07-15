@@ -2,11 +2,11 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var postgresDb = builder.AddPostgres("postgres")
     .WithDataVolume()
-    .AddDatabase("ordersdb");
+    .AddDatabase("orders-postgres", "ordersdb");
 
 var sqlDb = builder.AddSqlServer("sql")
     .WithDataVolume()
-    .AddDatabase("OrdersDb");
+    .AddDatabase("orders-sqlserver", "OrdersDb");
 
 builder.AddProject<Projects.DataAccess_Api>("api")
     .WithReference(postgresDb)
