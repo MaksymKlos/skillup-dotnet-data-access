@@ -29,7 +29,7 @@ public sealed class OrderLine : Entity<OrderLineId>
 
     public int Quantity { get; private set; }
 
-    public Money UnitPrice { get; private set; } = default!;
+    public Money UnitPrice { get; private set; } = null!;
 
     public Money LineTotal => UnitPrice.Multiply(Quantity);
 

@@ -1,6 +1,8 @@
+using DataAccess.Domain.Common;
+
 namespace DataAccess.Domain.Orders.Identifiers;
 
-public readonly record struct OrderLineId(Guid Value)
+public readonly record struct OrderLineId(Guid Value) : IStronglyTypedId
 {
     public static OrderLineId New() => new(Guid.NewGuid());
 
