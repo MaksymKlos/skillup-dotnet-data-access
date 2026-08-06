@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.4.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataAccess.Domain\DataAccess.Domain.csproj" />
     <ProjectReference Include="..\DataAccess.Application\DataAccess.Application.csproj" />
     <ProjectReference Include="..\DataAccess.Infrastructure.EfCore\DataAccess.Infrastructure.EfCore.csproj" />
