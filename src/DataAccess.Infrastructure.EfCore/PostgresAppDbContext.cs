@@ -11,7 +11,6 @@ public sealed class PostgresAppDbContext(DbContextOptions<PostgresAppDbContext> 
     {
         base.OnModelCreating(modelBuilder);
 
-        // Map a uint shadow property to Postgres' system "xmin" column for optimistic concurrency.
         modelBuilder.Entity<Product>().Property<uint>("xmin").HasColumnName("xmin").IsRowVersion();
         modelBuilder.Entity<OutboxMessage>().Property(m => m.Content).HasColumnType("jsonb");
     }
