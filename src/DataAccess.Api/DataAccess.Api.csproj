@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.4.6" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.4" />
+    <!-- Override the transitive Microsoft.OpenApi 2.0.0 pulled by AspNetCore.OpenApi (NU1903 advisory). -->
+    <PackageReference Include="Microsoft.OpenApi" Version="2.7.5" />
   </ItemGroup>
 
   <ItemGroup>
