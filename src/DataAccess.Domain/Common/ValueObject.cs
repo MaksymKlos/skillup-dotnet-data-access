@@ -1,9 +1,5 @@
 namespace DataAccess.Domain.Common;
 
-/// <summary>
-/// Base class for value objects: objects with no identity, compared by value.
-/// Derived types list their components in <see cref="GetEqualityComponents"/>.
-/// </summary>
 public abstract class ValueObject
 {
     protected abstract IEnumerable<object?> GetEqualityComponents();

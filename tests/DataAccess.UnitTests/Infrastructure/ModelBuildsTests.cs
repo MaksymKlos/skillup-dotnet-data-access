@@ -1,6 +1,7 @@
 using DataAccess.Domain.Orders;
 using DataAccess.Domain.Products;
 using DataAccess.Infrastructure.EfCore;
+using DataAccess.Infrastructure.EfCore.Inbox;
 using DataAccess.Infrastructure.EfCore.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Shouldly;
@@ -8,13 +9,9 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Infrastructure;
 
-/// <summary>
-/// Validates that both provider models are internally consistent — every configuration,
-/// converter, owned type and concurrency token resolves — by building the EF Core model
-/// without opening a database connection. Real persistence is exercised in the integration
-/// tests (Step 8).
-/// </summary>
-public class ModelBuildsTests
+// Builds the EF Core model without opening a connection, so a misconfigured mapping fails fast
+// here rather than at first query. Real persistence is exercised in the integration tests.
+public sealed class ModelBuildsTests
 {
     private static PostgresAppDbContext NewPostgresContext()
     {
@@ -42,6 +39,7 @@ public class ModelBuildsTests
         model.FindEntityType(typeof(Order)).ShouldNotBeNull();
         model.FindEntityType(typeof(Product)).ShouldNotBeNull();
         model.FindEntityType(typeof(OutboxMessage)).ShouldNotBeNull();
+        model.FindEntityType(typeof(InboxMessage)).ShouldNotBeNull();
     }
 
     [Fact]
@@ -54,6 +52,7 @@ public class ModelBuildsTests
         model.FindEntityType(typeof(Order)).ShouldNotBeNull();
         model.FindEntityType(typeof(Product)).ShouldNotBeNull();
         model.FindEntityType(typeof(OutboxMessage)).ShouldNotBeNull();
+        model.FindEntityType(typeof(InboxMessage)).ShouldNotBeNull();
     }
 
     [Fact]

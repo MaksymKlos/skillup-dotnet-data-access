@@ -36,6 +36,7 @@ public sealed class SqlServerFixture : IAsyncLifetime
         services.AddEfCore(configuration);
         services.AddDapper(configuration);
         services.AddScoped<ICommandHandler<CreateProductCommand, Result<Guid>>, CreateProductCommandHandler>();
+        services.AddScoped<ICommandHandler<RestockProductCommand, Result>, RestockProductCommandHandler>();
         services.AddScoped<ICommandHandler<PlaceOrderCommand, Result<Guid>>, PlaceOrderCommandHandler>();
         Services = services.BuildServiceProvider();
 

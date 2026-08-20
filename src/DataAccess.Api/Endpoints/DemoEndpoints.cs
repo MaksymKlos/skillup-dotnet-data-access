@@ -1,6 +1,9 @@
 using System.Data;
+using Dapper;
 using DataAccess.Application.Products;
 using DataAccess.Domain.Products.Identifiers;
+using DataAccess.Infrastructure.Dapper;
+using DataAccess.Infrastructure.Dapper.Products;
 using DataAccess.Infrastructure.EfCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,7 +47,37 @@ public static class DemoEndpoints
             return Results.Ok(new { first, second });
         });
 
-        // Read under a chosen isolation level, showing the transaction API (query ?level=Serializable).
+        // Pessimistic locking: each writer opens its own transaction and locks the product row before
+        // reading stock (SELECT ... FOR UPDATE / UPDLOCK). The second writer blocks until the first
+        // commits, so the two decrements serialize and no update is lost — the opposite trade-off to
+        // the optimistic demo above, which lets both proceed and rejects the loser at save time.
+        group.MapPost("/pessimistic", async (
+            ConcurrencyDemoRequest request,
+            ISqlConnectionFactory connectionFactory,
+            ProductLockDialect dialect,
+            CancellationToken ct) =>
+        {
+            async Task<int> LockThenDecrementAsync()
+            {
+                await using var connection = connectionFactory.Create();
+                await connection.OpenAsync(ct);
+                await using var transaction = await connection.BeginTransactionAsync(ct);
+
+                var stockAtLock = await connection.ExecuteScalarAsync<int>(new CommandDefinition(
+                    dialect.LockAndReadStockSql, new { id = request.ProductId }, transaction, cancellationToken: ct));
+
+                await connection.ExecuteAsync(new CommandDefinition(
+                    dialect.DecrementStockSql,
+                    new { id = request.ProductId, quantity = request.Quantity }, transaction, cancellationToken: ct));
+
+                await transaction.CommitAsync(ct);
+                return stockAtLock;
+            }
+
+            var stockReads = await Task.WhenAll(LockThenDecrementAsync(), LockThenDecrementAsync());
+            return Results.Ok(new { stockReadsUnderLock = stockReads });
+        });
+
         group.MapGet("/isolation", async (
             AppDbContext dbContext,
             CancellationToken ct,

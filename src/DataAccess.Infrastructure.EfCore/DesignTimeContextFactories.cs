@@ -7,7 +7,7 @@ public sealed class PostgresAppDbContextFactory : IDesignTimeDbContextFactory<Po
 {
     public PostgresAppDbContext CreateDbContext(string[] args)
     {
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__orders-postgres")
+        var connectionString = Environment.GetEnvironmentVariable($"ConnectionStrings__{DatabaseConnectionNames.Postgres}")
             ?? throw new InvalidOperationException("Connection string for PostgresAppDbContext is not set.");
 
         var options = new DbContextOptionsBuilder<PostgresAppDbContext>()
@@ -22,7 +22,7 @@ public sealed class SqlServerAppDbContextFactory : IDesignTimeDbContextFactory<S
 {
     public SqlServerAppDbContext CreateDbContext(string[] args)
     {
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__orders-sqlserver")
+        var connectionString = Environment.GetEnvironmentVariable($"ConnectionStrings__{DatabaseConnectionNames.SqlServer}")
             ?? throw new InvalidOperationException("Connection string for SqlServerAppDbContext is not set.");
 
         var options = new DbContextOptionsBuilder<SqlServerAppDbContext>()

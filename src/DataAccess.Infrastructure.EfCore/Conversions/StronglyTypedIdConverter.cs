@@ -10,7 +10,6 @@ public sealed class StronglyTypedIdConverter<TId>()
     : ValueConverter<TId, Guid>(id => id.Value, FromGuid())
     where TId : struct, IStronglyTypedId
 {
-    // Build `value => new TId(value)` from the record struct's single-Guid constructor.
     private static Expression<Func<Guid, TId>> FromGuid()
     {
         var ctor = typeof(TId).GetConstructor([typeof(Guid)])
