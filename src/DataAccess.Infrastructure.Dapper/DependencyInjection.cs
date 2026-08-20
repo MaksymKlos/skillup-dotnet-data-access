@@ -1,5 +1,6 @@
 using DataAccess.Application.Orders.Queries;
 using DataAccess.Infrastructure.Dapper.Orders;
+using DataAccess.Infrastructure.Dapper.Products;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,12 +20,14 @@ public static class DependencyInjection
             services.AddSingleton<ISqlConnectionFactory>(
                 new SqlServerConnectionFactory(GetConnectionString(configuration, SqlServerConnectionName)));
             services.AddSingleton<OrderDialect, SqlServerOrderDialect>();
+            services.AddSingleton<ProductLockDialect, SqlServerProductLockDialect>();
         }
         else
         {
             services.AddSingleton<ISqlConnectionFactory>(
                 new PostgresConnectionFactory(GetConnectionString(configuration, PostgresConnectionName)));
             services.AddSingleton<OrderDialect, PostgresOrderDialect>();
+            services.AddSingleton<ProductLockDialect, PostgresProductLockDialect>();
         }
 
         services.AddScoped<IOrderQueries, DapperOrderQueries>();

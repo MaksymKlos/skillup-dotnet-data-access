@@ -4,12 +4,8 @@ using DataAccess.Domain.Products.Identifiers;
 
 namespace DataAccess.Domain.Products;
 
-/// <summary>
-/// Product aggregate root, keyed by <see cref="ProductId"/>. Guards that stock never
-/// goes negative and raises <see cref="StockDepleted"/> when it reaches zero. The
-/// optimistic-concurrency token (xmin / rowversion) is a shadow property configured
-/// in the EF layer, so it does not appear here.
-/// </summary>
+// The optimistic-concurrency token (xmin / rowversion) is a shadow property configured
+// in the EF layer, so it does not appear here.
 public sealed class Product : AggregateRoot<ProductId>
 {
     private Product() { }
@@ -58,7 +54,7 @@ public sealed class Product : AggregateRoot<ProductId>
 
         if (Stock == 0)
         {
-            RaiseDomainEvent(new StockDepleted(Id, Sku, DateTimeOffset.UtcNow));
+            RaiseDomainEvent(new StockDepleted(Id, Sku));
         }
     }
 

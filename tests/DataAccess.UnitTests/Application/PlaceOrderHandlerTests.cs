@@ -12,7 +12,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Application;
 
-public class PlaceOrderHandlerTests
+public sealed class PlaceOrderHandlerTests
 {
     private readonly IProductRepository _products = Substitute.For<IProductRepository>();
     private readonly IOrderRepository _orders = Substitute.For<IOrderRepository>();

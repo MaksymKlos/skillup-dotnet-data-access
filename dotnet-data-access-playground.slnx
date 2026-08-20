@@ -17,4 +17,7 @@
     <Project Path="tests/DataAccess.UnitTests/DataAccess.UnitTests.csproj" />
     <Project Path="tests/DataAccess.IntegrationTests/DataAccess.IntegrationTests.csproj" />
   </Folder>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/DataAccess.Benchmarks/DataAccess.Benchmarks.csproj" />
+  </Folder>
 </Solution>

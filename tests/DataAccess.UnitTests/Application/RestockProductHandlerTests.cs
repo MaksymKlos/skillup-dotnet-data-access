@@ -10,7 +10,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Application;
 
-public class RestockProductHandlerTests
+public sealed class RestockProductHandlerTests
 {
     private readonly IProductRepository _products = Substitute.For<IProductRepository>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();

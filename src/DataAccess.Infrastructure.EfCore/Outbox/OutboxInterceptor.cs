@@ -7,7 +7,7 @@ namespace DataAccess.Infrastructure.EfCore.Outbox;
 
 // Captures domain events into the Outbox within the same SaveChanges transaction, so events are
 // stored atomically with the state change that raised them.
-public sealed class OutboxInterceptor : SaveChangesInterceptor
+public sealed class OutboxInterceptor(TimeProvider timeProvider) : SaveChangesInterceptor
 {
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
@@ -21,9 +21,11 @@ public sealed class OutboxInterceptor : SaveChangesInterceptor
 
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
-    
-    private static void CaptureDomainEvents(DbContext context)
+
+    private void CaptureDomainEvents(DbContext context)
     {
+        var occurredAt = timeProvider.GetUtcNow();
+
         var aggregates = context.ChangeTracker
             .Entries<IHasDomainEvents>()
             .Select(entry => entry.Entity)
@@ -39,7 +41,7 @@ public sealed class OutboxInterceptor : SaveChangesInterceptor
                     Id = Guid.NewGuid(),
                     Type = domainEvent.GetType().Name,
                     Content = JsonSerializer.Serialize(domainEvent, domainEvent.GetType()),
-                    OccurredAt = domainEvent.OccurredAt,
+                    OccurredAt = occurredAt,
                 });
             }
 

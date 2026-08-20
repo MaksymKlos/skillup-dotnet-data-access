@@ -1,9 +1,5 @@
 namespace DataAccess.Domain.Common;
 
-/// <summary>
-/// Base class for aggregate roots — the single entry point into an aggregate and
-/// the boundary of a transaction. Only the root records domain events.
-/// </summary>
 public abstract class AggregateRoot<TId> : Entity<TId>, IHasDomainEvents
     where TId : notnull
 {
