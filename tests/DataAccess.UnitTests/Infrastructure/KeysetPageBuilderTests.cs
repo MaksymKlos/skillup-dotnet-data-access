@@ -5,7 +5,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Infrastructure;
 
-public class KeysetPageBuilderTests
+public sealed class KeysetPageBuilderTests
 {
     private static OrderSummaryDto Summary(int minute)
         => new(Guid.NewGuid(), Guid.NewGuid(), "Placed", 10m, "USD", 1,

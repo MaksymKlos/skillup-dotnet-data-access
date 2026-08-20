@@ -3,9 +3,6 @@ using DataAccess.Domain.Products.Identifiers;
 
 namespace DataAccess.Application.Products;
 
-/// <summary>
-/// Command-side access to the <see cref="Product"/> aggregate.
-/// </summary>
 public interface IProductRepository
 {
     Task<Product?> GetAsync(ProductId id, CancellationToken ct = default);

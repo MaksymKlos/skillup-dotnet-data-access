@@ -1,9 +1,5 @@
 namespace DataAccess.Domain.Common;
 
-/// <summary>
-/// Money value object: an amount plus an ISO currency code. Immutable, compared
-/// by value. Operations across different currencies are rejected.
-/// </summary>
 public sealed class Money : ValueObject
 {
     public Money(decimal amount, string currency)

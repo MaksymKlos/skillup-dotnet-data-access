@@ -7,7 +7,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Domain;
 
-public class ProductTests
+public sealed class ProductTests
 {
     private static Product NewProduct(int stock = 10)
         => Product.Create(ProductId.New(), "SKU-1", new Money(10m, "USD"), stock);

@@ -41,6 +41,7 @@ public sealed class OutboxEndToEndFixture : IAsyncLifetime
         var services = new ServiceCollection();
         services.AddEfCore(configuration);
         services.AddScoped<ICommandHandler<CreateProductCommand, Result<Guid>>, CreateProductCommandHandler>();
+        services.AddScoped<ICommandHandler<RestockProductCommand, Result>, RestockProductCommandHandler>();
         services.AddScoped<ICommandHandler<PlaceOrderCommand, Result<Guid>>, PlaceOrderCommandHandler>();
         Services = services.BuildServiceProvider();
 

@@ -3,6 +3,7 @@ using DataAccess.Domain.Common;
 using DataAccess.Domain.Orders;
 using DataAccess.Domain.Products;
 using DataAccess.Infrastructure.EfCore.Conversions;
+using DataAccess.Infrastructure.EfCore.Inbox;
 using DataAccess.Infrastructure.EfCore.Outbox;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,8 @@ public abstract class AppDbContext(DbContextOptions options) : DbContext(options
     public DbSet<Product> Products => Set<Product>();
 
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+
+    public DbSet<InboxMessage> InboxMessages => Set<InboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

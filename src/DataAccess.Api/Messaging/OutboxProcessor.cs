@@ -17,9 +17,7 @@ public sealed class OutboxProcessor(
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await using var channel = await connection.CreateChannelAsync(cancellationToken: stoppingToken);
-        await channel.QueueDeclareAsync(
-            OrderEventsTopology.QueueName, durable: true, exclusive: false, autoDelete: false,
-            cancellationToken: stoppingToken);
+        await OrderEventsTopology.DeclareAsync(channel, stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {

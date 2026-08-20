@@ -5,11 +5,6 @@ using DataAccess.Domain.Products.Identifiers;
 
 namespace DataAccess.Domain.Orders;
 
-/// <summary>
-/// Order aggregate root. Owns its lines and guards all invariants: lines change only
-/// while the order is a draft, an order cannot be placed without lines, and all lines
-/// must share one currency.
-/// </summary>
 public sealed class Order : AggregateRoot<OrderId>
 {
     private readonly List<OrderLine> _lines = [];
@@ -74,7 +69,7 @@ public sealed class Order : AggregateRoot<OrderId>
         }
 
         Status = OrderStatus.Placed;
-        RaiseDomainEvent(new OrderPlaced(Id, CustomerId, Total.Amount, Total.Currency, DateTimeOffset.UtcNow));
+        RaiseDomainEvent(new OrderPlaced(Id, CustomerId, Total.Amount, Total.Currency));
     }
 
     public void MarkPaid()

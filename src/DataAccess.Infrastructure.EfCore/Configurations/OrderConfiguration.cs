@@ -17,11 +17,7 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
             lines.ToTable("order_lines");
             lines.HasKey(l => l.Id);
 
-            lines.OwnsOne(l => l.UnitPrice, price =>
-            {
-                price.Property(p => p.Amount).HasPrecision(18, 2);
-                price.Property(p => p.Currency).HasMaxLength(3);
-            });
+            lines.OwnsOne(l => l.UnitPrice, price => price.ConfigureMoney());
             lines.Navigation(l => l.UnitPrice).IsRequired();
 
             lines.Ignore(l => l.LineTotal);

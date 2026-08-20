@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Application;
 
-public class CreateProductHandlerTests
+public sealed class CreateProductHandlerTests
 {
     private readonly IProductRepository _products = Substitute.For<IProductRepository>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();

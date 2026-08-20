@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Domain;
 
-public class OrderTests
+public sealed class OrderTests
 {
     private static Order NewDraft() => Order.CreateDraft(CustomerId.New(), DateTimeOffset.UtcNow);
 

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace DataAccess.UnitTests.Domain;
 
-public class MoneyTests
+public sealed class MoneyTests
 {
     [Fact]
     public void Same_amount_and_currency_are_equal_by_value()

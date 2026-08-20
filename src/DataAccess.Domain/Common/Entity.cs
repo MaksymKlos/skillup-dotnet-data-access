@@ -1,11 +1,5 @@
 namespace DataAccess.Domain.Common;
 
-/// <summary>
-/// Base class for entities: objects with an identity that persists over time.
-/// Two entities are equal when they are the same type and share the same Id,
-/// regardless of their other field values.
-/// </summary>
-/// <typeparam name="TId">The strongly-typed identifier.</typeparam>
 public abstract class Entity<TId>
     where TId : notnull
 {

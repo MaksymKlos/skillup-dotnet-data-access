@@ -43,5 +43,6 @@ app.MapProductEndpoints();
 app.MapOrderEndpoints();
 app.MapOutboxEndpoints();
 app.MapDemoEndpoints();
+app.MapEfTechniquesEndpoints();
 
 await app.RunAsync();

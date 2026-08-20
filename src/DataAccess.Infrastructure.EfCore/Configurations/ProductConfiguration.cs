@@ -12,11 +12,7 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.Property(p => p.Sku).HasMaxLength(100);
 
-        builder.OwnsOne(p => p.Price, price =>
-        {
-            price.Property(m => m.Amount).HasPrecision(18, 2);
-            price.Property(m => m.Currency).HasMaxLength(3);
-        });
+        builder.OwnsOne(p => p.Price, price => price.ConfigureMoney());
         builder.Navigation(p => p.Price).IsRequired();
 
         builder.Ignore(p => p.DomainEvents);

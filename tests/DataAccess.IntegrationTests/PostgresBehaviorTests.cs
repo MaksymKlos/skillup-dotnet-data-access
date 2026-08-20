@@ -31,7 +31,6 @@ public sealed class PostgresBehaviorTests(PostgresFixture fixture)
         var productA = await scopeA.ServiceProvider.GetRequiredService<IProductRepository>().GetAsync(productId, ct);
         var productB = await scopeB.ServiceProvider.GetRequiredService<IProductRepository>().GetAsync(productId, ct);
 
-        // Both read the same version token, then both mutate.
         productA!.Decrease(1);
         productB!.Decrease(1);
 
